@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Research Paper Search</title>
+    <!-- <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/732/732241.png"> -->
+    <!-- <link rel="icon" href="./images/books.png" type="image/png" /> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #e1f1f0;
+    }
+
+    h1 {
+      margin: 1rem;
+      color: #00363b;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #007c7b;
+      height: 70px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 20px;
+      color: white;
+      font-size: 1rem;
+    }
+    a {
+      color: rgb(255, 255, 255);
+      text-decoration: none;
+    }
+    td a{
+      color: blue;
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+      text-align: left;
+      flex: 1;
+    }
+
+    li {
+      margin: 0 10px;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    li.sessionname {
+      text-align: right;
+      font-weight: bolder;
+    }
+
+    li.logout {
+      margin-right: 0;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 600px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #00363b;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+
+    input[type="submit"] {
+      background-color: #007c7b;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #005e5d;
+    }
+
+    table {
+      margin: 1rem;
+      border-collapse: collapse;
+      width: 80%;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    tr th {
+      border: 2px solid #00363b;
+      text-align: left;
+      padding: 0.5rem;
+      color: #00363b;
+    }
+    label {
+      color: #00363b;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    #output {
+      margin: 1rem;
+      color: #00363b;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    tr td {
+      border: 1px solid #ccc;
+      padding: 0.5rem;
+    }
+
+    tr:nth-child(even) {
+      background-color: #b8b8b8;
+    }
+    td.url {
+      max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: wrap;
+    }
+    p {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 50px;
+      font-weight: bolder;
+      color: #fe0303;
+      margin-top: 20px;
+    }
+    .sad-icon {
+      /* font-size: 24px; */
+      vertical-align: middle;
+      margin-left: 10px;
+      font-size: 2em;
+      margin-right: 0.5em;
+    }
+
+    .add-button {
+      padding: 10px 20px;
+      background-color: #005e5d;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .add-button:hover {
+      background-color: #4d9e53;
+    }
+
+    /* input[type="submit"]:hover {
+      background-color: #008080;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    table {
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    } */
+  </style>
+  <body>
+    <nav>
+      <ul>
+        <!-- <li><a href="{{ url_for('login') }}">Home</a></li> -->
+        <li><a href="{{ url_for('display') }}">Your Bibliography</a></li>
+        <!-- <li><a href="#">Contact</a></li> -->
+        <li class="logout"><a href="{{ url_for('logout') }}">Logout</a></li>
+        <li class="sessionname">Welcome : <strong>{{session.name}}</strong></li>
+      </ul>
+    </nav>
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <ul class="flashes">
+      {% for error in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %} {% endwith %}
+
+    <h1>Research Paper Search</h1>
+    <form method="POST">
+      <label for="research_paper"
+        >Enter the research paper to be searched:</label
+      >
+      <input
+        type="text"
+        id="research_paper"
+        name="research_paper"
+        placeholder="Eg:'MACHINE LEARNING' "
+      /><br /><br />
+      <input type="submit" value="Search" />
+    </form>
+    <br />
+    {% if papers %}
+    <table>
+      <h2 id="output">Search Results:</h2>
+      <thead>
+        <tr>
+          <th>Paper Title</th>
+          <th>Authors</th>
+          <!-- <th>Citation Count</th> -->
+          <th>URL of Paper</th>
+          <!-- <th></th> -->
+        </tr>
+      </thead>
+      <tbody>
+        {% for paper in papers['paper title'] %}
+        <tr>
+          <td>{{ paper }}</td>
+          <td>{{ ''.join(papers['authors'][loop.index0]) }}</td>
+          
+          <!-- <td> <a href="{{ papers['url of paper'][loop.index0] }}" target="_blank"></a></td> -->
+          <td class="url">
+            <a href="{{ papers['url of paper'][loop.index0] }}" target="_blank"
+              >{{ papers['url of paper'][loop.index0] }}</a
+            >
+          </td>
+          <!-- <td>
+            <button class="like-btn" data-paper="{{ paper }}">Like</button>
+            <span class="like-count" id="like-count-{{ loop.index0 }}">0</span>
+          </td> -->
+          <td>
+            <form method="POST" action="/cart">
+              <input type="hidden" name="paper_id" value="{{ paper_id }}">
+              <input type="hidden" name="title" value="{{ papers ['paper title'][loop.index0] }}">
+              <input type="hidden" name="author" value="{{ ''.join(papers['authors'][loop.index0]) }}">
+              <input type="hidden" name="url of paper" value="{{''.join(papers['url of paper'][loop.index0]) }}">
+              <button type="submit" class="add-button">Add to Bibliography</button>
+            </form>
+          </td>
+          
+          <!-- <td><button type="submit" href="{{ url_for('add_to_cart') }}" >Add to cart</button></td> -->
+
+        </tr>
+        {% endfor %}
+      </tbody>
+      
+    </table>
+    {% endif %}
+  </body>
+</html>

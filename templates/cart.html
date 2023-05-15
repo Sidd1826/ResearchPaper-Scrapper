@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* Set body background color */
+      body {
+        background-color: #d8f3dc;
+      }
+
+      /* Set table styles */
+      table {
+        border-collapse: collapse;
+        margin: 1em;
+        font-family: Arial, sans-serif;
+        width: 100%;
+        max-width: 800px;
+      }
+
+      th {
+        background-color: #11998e;
+        color: white;
+        font-weight: bold;
+        padding: 0.5em;
+        text-align: left;
+      }
+
+      td {
+        border: 1px solid #11998e;
+        padding: 0.5em;
+      }
+      h2 {
+        text-align: center;
+        color: #11998e;
+      }
+
+      /* Set styles for empty cart message */
+      p {
+        margin: 1em;
+        font-family: Arial, sans-serif;
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #2b2d42;
+      }
+      h4 {
+        text-align: center;
+        color: #6abf69;
+      }
+
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        background-color: #4caf50;
+        color: white;
+        text-decoration: none;
+      }
+
+      .button:hover {
+        background-color: #39c23d;
+      }
+
+    </style>
+  </head>
+  <body>
+    <h2>Your Data Has Been Added Successfully!</h2>
+    {% if "cart" in session %}
+    <table>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>url</th>
+      </tr>
+      {% for item in session["cart"] %}
+      <tr>
+        <td>{{ item.title }}</td>
+        <td>{{ item.author }}</td>
+        <td>{{ item.url }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% else %}
+    <p>Your cart is empty.</p>
+    {% endif %}
+    <h4>
+      <span><a class="button" href="/index">HOME</a></span>
+  </h4>
+  </body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <title>Display Data</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        max-width: 800px;
+        margin: auto;
+        background-color: #ccffcc;
+      }
+      th,
+      td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background-color: #4caf50;
+        color: white;
+      }
+      h1 {
+        text-align: center;
+        color: #11998e;
+      }
+      h4 {
+        text-align: center;
+        color: #11998e;
+      }
+
+      .search-box {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+      .search-box input[type="text"] {
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        margin-right: 10px;
+        width: 300px;
+      }
+      .search-box input[type="submit"] {
+        padding: 10px;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .search-box input[type="submit"]:hover {
+        background-color: #4caf50;
+      }
+
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        background-color: #4caf50;
+        color: white;
+        text-decoration: none;
+      }
+
+      .button:hover {
+        background-color: #39c23d;
+      }
+
+      .container {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 5px;
+        margin-right: 30px;
+      }
+
+      .download-button {
+        display: inline-flex;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: #67c56e;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: bold;
+      }
+
+      .download-button i {
+        margin-right: 5px;
+      }
+
+      .download-button:hover {
+        background-color: #4d9e53;
+      }
+    </style>
+  </head>
+  <body>
+    {% if data %}
+    <h1>Bibliography on "{{ query }}"</h1>
+    <div class="container">
+      <a href="#" class="download-button" id="download-btn">
+        <i class="fas fa-download"></i> Download
+      </a>
+    </div>
+
+    <table>
+      <tr>
+        <th>sr_no</th>
+        <th>title</th>
+        <th>author</th>
+        <th>url</th>
+      </tr>
+      {% for row in data %}
+      <tr>
+        <td>{{ row[0] }}</td>
+        <td>{{ row[1] }}</td>
+        <td>{{ row[2] }}</td>
+        <td><a href="{{ row[3] }}" target="_blank">{{ row[3] }}</a></td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% else %}
+    <nav>
+      <div class="search-box">
+        <form action="/search" method="POST">
+          <input type="text" name="query" placeholder="Search..." />
+          <input type="submit" value="Search" />
+        </form>
+      </div>
+    </nav>
+    <br /><br /><br /><br />
+    <h1>No data found in your wishlist for "{{ query }}"</h1>
+    {% endif %}
+
+    <h4>
+      <span><a class="button" href="/index">HOME</a></span>
+    </h4>
+    <h4>
+      <span><a class="button" href="/display">Wishlist</a></span>
+    </h4>
+
+    <script>
+      // Function to download table data as CSV
+      function downloadTableAsCSV() {
+        var table = document.querySelector("table");
+        var rows = table.querySelectorAll("tr");
+        var csvData = "";
+
+        // Loop through rows and cells to construct CSV string
+        for (var i = 0; i < rows.length; i++) {
+          var cells = rows[i].querySelectorAll("td, th");
+
+          for (var j = 0; j < cells.length; j++) {
+            var cellData = cells[j].innerText.replace(/"/g, '""');
+
+            if (j !== 0) {
+              csvData += ",";
+            }
+
+            csvData += '"' + cellData + '"';
+          }
+
+          csvData += "\n";
+        }
+
+        // Create a temporary link element and trigger the download
+        var link = document.createElement("a");
+        link.href =
+          "data:text/csv;charset=utf-8," + encodeURIComponent(csvData);
+        link.download = "bibliography.csv";
+        link.style.display = "none";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+
+      // Attach event listener to the download button
+      var downloadButton = document.getElementById("download-btn");
+      downloadButton.addEventListener("click", downloadTableAsCSV);
+    </script>
+  </body>
+</html>
