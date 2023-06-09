@@ -7,4 +7,6 @@ Automated Web Scraping of Research Publication Articles
 
 ![image](https://github.com/adarshm55/GROUP-28_MP/assets/87515095/0eca3fbf-8bb3-4e88-bb5a-195ee95f5200)
 ![image](https://github.com/adarshm55/GROUP-28_MP/assets/87515095/f1c2687d-3983-4348-8681-3bd043c32b43)
+![image](https://github.com/adarshm55/GROUP-28_MP/assets/87515095/1872eb6c-e82e-47eb-8e48-c6c4ad7e6d96)
+
 
