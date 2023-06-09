@@ -5,8 +5,30 @@ Automated Web Scraping of Research Publication Articles
 - Provide the capability to add selected papers to a bibliography and download it in CSV format.
 - Enhance research efficiency by saving time and effort while improving project quality and speed through effective organization of relevant articles.
 
-![image](https://github.com/adarshm55/GROUP-28_MP/assets/87515095/0eca3fbf-8bb3-4e88-bb5a-195ee95f5200)
-![image](https://github.com/adarshm55/GROUP-28_MP/assets/87515095/f1c2687d-3983-4348-8681-3bd043c32b43)
-![image](https://github.com/adarshm55/GROUP-28_MP/assets/87515095/1872eb6c-e82e-47eb-8e48-c6c4ad7e6d96)
+OUTPUT:
+REGISTER:-
+![image](https://github.com/adarshm55/GROUP-28_MP/assets/87515095/f296aee9-e09a-4b39-aaa4-3212c848c98a)
+
+LOGIN:-
+![image](https://github.com/adarshm55/GROUP-28_MP/assets/87515095/0800a79a-313b-4887-9f88-8773f1fbd53b)
+
+HOMEPAGE:-
+![image](https://github.com/adarshm55/GROUP-28_MP/assets/87515095/35732257-7bb3-4ec9-bacb-297e3a84a119)
+
+RESULT PAGE:-
+![image](https://github.com/adarshm55/GROUP-28_MP/assets/87515095/e436ad39-894d-4fe1-9236-d4fe0454b5c7)
+
+MESSAGE PAGE:-
+![image](https://github.com/adarshm55/GROUP-28_MP/assets/87515095/750a6cec-bc58-4236-a7cb-e40538f87f03)
+
+BIBLIOGRAPHY:-
+![image](https://github.com/adarshm55/GROUP-28_MP/assets/87515095/92df024d-93d8-4d43-b1d8-c6d468a09662)
+
+BIBLIOGRAPHY DOWNLOADED INTO USER'S LOCAL STORAGE:
+![image](https://github.com/adarshm55/GROUP-28_MP/assets/87515095/71d8381b-ab78-44de-9c2c-5474be65846e)
+![image](https://github.com/adarshm55/GROUP-28_MP/assets/87515095/35ff651b-41cd-40ec-9820-f49cf15fd4c1)
+
+
+
 
 
